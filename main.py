@@ -68,10 +68,10 @@ def open_socket(ip):
         
 def get_temp():
     sensor_temp = machine.ADC(4)
-    cf = 3.3/65535
+    cf = 3.3/65535.0
     temp = sensor_temp.read_u16() * cf
-    temC = 27 - ( temp - 0.706 )/ 0.001721
-    temF = temC * 9/5 + 32
+    temC = 27.0 - ( temp - 0.706 )/ 0.001721
+    temF = temC * 9.0/5.0 + 32.0
     return temF
 
 

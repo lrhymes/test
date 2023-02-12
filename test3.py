@@ -2,7 +2,7 @@ import socket
 import time
 import matplotlib.pyplot as plt
 import numpy as np
-from IPython.display import clear_output
+
 
 
 secs = time.time()
@@ -19,10 +19,14 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_address = (ip, 10000)
 sock.connect(server_address)
 
+
+
 plt.ion()
-ax = plt.gca()
-ax.set_autoscale_on(True)
-line, = ax.plot(X,Y)
+figure, ax = plt.subplots(figsize=(10, 8))
+line1, = ax.plot(X, Y)
+
+figure2, ax2 = plt.subplots(figsize=(10, 8))
+line2, = ax2.plot(X, Y)
 
 ii = 0
 while True:
@@ -31,21 +35,25 @@ while True:
     y = np.random.random()
     y = time.time()
     sock.sendall(b"12345")
-    time.sleep(0.5)
     t = sock.recv(1024)
-    Y[i] = float(t)
- 
+    Y[0:9] = Y[1:10]
+    Y[9] = float(t)
     print(Y)
     
-    line.set_ydata(Y)
-    ax.relim()
-    ax.autoscale_view(True,True,True)
-    ax.axis([-1,11,min(Y)-2,max(Y)+2])
-    plt.draw()
-    plt.pause(0.1)
-
+    line1.set_xdata(X)
+    line1.set_ydata(Y)
     
-#     plt.axes([-0.1,1.1,65,85])
+    line2.set_ydata(np.flip(Y))
+    
+    ax.axis([-2, 12, min(Y)-2, max(Y)+2])
+    ax2.axis([-2, 12, min(Y)-2, max(Y)+2])
+    
+    figure.canvas.draw()
+    figure.canvas.flush_events()
+    figure2.canvas.draw()
+    figure2.canvas.flush_events()
+ 
+    time.sleep(0.01)
 
 
 
