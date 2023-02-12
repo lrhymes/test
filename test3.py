@@ -14,6 +14,7 @@ X = np.linspace(0,9,10)
 Y = np.zeros(10)
 #exec(open("main.py").read())
 ip = "192.168.1.189"
+ip = "192.168.1.200"
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_address = (ip, 10000)
