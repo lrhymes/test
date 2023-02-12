@@ -1,17 +1,16 @@
 import network
 import socket
 from time import sleep
-import machine
+from umachine import *
 import time
 
 led = Pin("LED", Pin.OUT)
-led.off()
-
+led.toggle()
 
 
 ssid = '2WIRE141'
 password = '0200371906'
-
+print('ssid and password set')
     
 def connect():
 #Connect to WLAN
