@@ -29,7 +29,7 @@ s.flush()
 while True:
     s.flush()
     data = s.read(4)
-    temp = struct.unpack('<I', data)
+    temp = struct.unpack('>I', data)
     print(temp)
     print(list(data))
     ii = ii + 1
