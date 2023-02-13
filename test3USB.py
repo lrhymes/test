@@ -1,49 +1,42 @@
-import socket
+from time import sleep
+from umachine import *
 import time
-import matplotlib.pyplot as plt
-import numpy as np
+import struct
+import sys
+
+led = Pin("LED", Pin.OUT)
+led.toggle()
+
+
+def get_temp():
+    sensor_temp = machine.ADC(4)
+    cf = 3.3/65535.0
+    temp = sensor_temp.read_u16() * cf
+    temC = 27.0 - ( temp - 0.706 )/ 0.001721
+    temF = temC * 9.0/5.0 + 32.0
+    return temF
 
 
 
-secs = time.time()
-print(secs)
+#while True:
+#    Temp = get_temp()
+#    print(Temp)
+
+# Temp = get_temp()
+# print('%.30f' % Temp)
+# baTemp = struct.pack("!f", Temp)
+# 
+# print(baTemp)
+# print(list(baTemp))
+# 
+# TempUn = struct.unpack('>f', baTemp)[0]
+# print('%.30f' % TempUn)
 
 
-#plt.axis([-1, 11, -0.2, 1.2])
-X = np.linspace(0,9,10)
-Y = np.zeros(10)
-#exec(open("main.py").read())
-
-plt.ion()
-figure, ax = plt.subplots(figsize=(10, 8))
-line1, = ax.plot(X, Y)
-
-figure2, ax2 = plt.subplots(figsize=(10, 8))
-line2, = ax2.plot(X, Y)
-
-ii = 0
 while True:
-    ii = ii + 1
-    i = ii%10
-    y = np.random.random()
-    y = time.time()
-
+    Temp = get_temp()
+    baTemp = struct.pack("!f", Temp)
+    sys.stdout.write(baTemp)
+    led.toggle()
+    time.sleep(0.05)
     
-#     line1.set_xdata(X)
-#     line1.set_ydata(Y)
-#     
-#     line2.set_ydata(np.flip(Y))
-#     
-#     ax.axis([-2, 12, min(Y)-2, max(Y)+2])
-#     ax2.axis([-2, 12, min(Y)-2, max(Y)+2])
-#     
-#     figure.canvas.draw()
-#     figure.canvas.flush_events()
-#     figure2.canvas.draw()
-#     figure2.canvas.flush_events()
-#  
-#     time.sleep(0.01)
-
-
-
-
