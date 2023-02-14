@@ -7,8 +7,13 @@ x = np.linspace(0,1,100)
 fig,ax = plt.subplots()
 
 p1, = ax.plot(x,np.sin(x))
-#plt.pause(0.1)
 
+figa,axss = plt.subplots(2,3)
+p00 = axss[0][0].plot(x,np.sin(x))
+
+
+plt.pause(0.1)
+plt.ion()
 # def p():
 #     while True:
 #         try:
