@@ -12,8 +12,6 @@ figa,axss = plt.subplots(2,3)
 p00 = axss[0][0].plot(x,np.sin(x))
 
 
-plt.pause(0.1)
-plt.ion()
 # def p():
 #     while True:
 #         try:
