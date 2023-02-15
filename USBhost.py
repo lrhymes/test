@@ -32,7 +32,7 @@ i = 0
 while True:
     i = i + 1
     print(s.in_waiting)
-    s.flushInput()
+    #s.flushInput()
     n, = struct.unpack("!I",s.read(4))
     #n = float(n)
   #  n = (n-14000)/16
@@ -48,7 +48,11 @@ while True:
     #line, = ax.plot(xx,y,'-b')
     if(i%7 == 0):
         line.set_ydata(y)
-        ax.set_ylim([min(y)-4, max(y)+4])
+        #ax.set_ylim([min(y)-4, max(y)+4])
+        plt.pause(0.00001)
+        s.flushInput()
+    if(i%50 == 0 ):
+        ax.set_ylim([min(y)-10, max(y)+10])
         plt.pause(0.00001)
     #l.set_ydata(yy)
     #l.set_xdata(xx)
