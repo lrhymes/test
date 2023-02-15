@@ -40,5 +40,5 @@ while True:
     baTemp = struct.pack("!I", Temp)
     sys.stdout.write(baTemp)
     led.toggle()
-    time.sleep(0.05)
+   # time.sleep(0.05)
     
