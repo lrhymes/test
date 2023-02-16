@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import struct
 import p
+from NTCLE100E3103JB0 import *
 
 def sens2temp(iii):
     cf = 3.3/65535.0
@@ -34,6 +35,12 @@ s.flushInput()
 y = np.zeros(1000)
 line, = ax.plot(y,'-b')
 ax.set_ylim([0,3.3])
+
+fig2,ax2 = plt.subplots()
+y2 = np.zeros(1000)
+line2, = ax2.plot(y2,'-b')
+ax2.set_ylim([60,90])
+
 i = 0
 while True:
     i = i + 1
@@ -41,6 +48,10 @@ while True:
     s.flushInput()
     n, = struct.unpack("!I",s.read(4))
     n = float(n)*3.3/65536
+    #n  = 1000/(1000+r)*3.3
+    r = 1/(n/(3.3*1000))-1000
+    r = r2t(r)-273.15
+    r = 9/5*r + 32
   #  n = (n-14000)/16
 #     s.flush()
 #     ti, = struct.unpack("!I", s.read(4))
@@ -48,11 +59,13 @@ while True:
 #     tti = sens2temp(ti)
 #     print(tti)
     y = np.append(y[1:len(y)],[n])
+    y2 = np.append(y2[1:len(y2)],[r])
     #yy = y[len(y)-300:len(y)]
     #xx = np.arange(1,len(y)+0.0001,1)
     #line, = ax.plot(xx,y,'-b')
     if(i%10 == 0):
         line.set_ydata(y)
+        line2.set_ydata(y2)
         #ax.set_ylim([min(y)-4, max(y)+4])
         #s.flushInput()
         plt.pause(0.00001)
