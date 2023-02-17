@@ -35,11 +35,20 @@ s.flushInput()
 y = np.zeros(1000)
 line, = ax.plot(y,'-b')
 ax.set_ylim([0,3.3])
+plt.rc('grid', linestyle="-", color='black')
+plt.grid(True)
+
 
 fig2,ax2 = plt.subplots()
 y2 = np.zeros(1000)
 line2, = ax2.plot(y2,'-b')
 ax2.set_ylim([60,90])
+t3 = np.ones(1000)*70
+line3, = ax2.plot(t3,'--b')
+ax2.grid(which='major', linestyle='-', linewidth='1', color='black')
+ax2.minorticks_on()
+ax2.grid(which='minor', linestyle=':', linewidth='0.5', color='black')
+
 
 i = 0
 while True:
@@ -68,6 +77,12 @@ while True:
         line2.set_ydata(y2)
         #ax.set_ylim([min(y)-4, max(y)+4])
         #s.flushInput()
+        tmean = np.mean(y2[len(y2)-100:len(y2)])
+        ax2.set_title('%.5f' % np.mean(y2[len(y2)-100:len(y2)])+" "+u"\u00b0"+"F" ,fontsize=40)
+        t3 = np.ones(1000)*tmean
+        line3.set_ydata(t3)
+        
+        
         plt.pause(0.00001)
         nwait2 = s.in_waiting
         s.flushInput()
