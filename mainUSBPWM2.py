@@ -20,7 +20,7 @@ led.toggle()
 
 pout = Pin(15)
 pwm15 = PWM(pout)
-pwm15.freq(10000000)
+pwm15.freq(1000000)
 pwm15.duty_u16(10000)
 
 N = 256
@@ -31,8 +31,12 @@ for i in range(0,N):
 
 while True:
     #Temp = get_temp()
-    tick = sys.stdin.read(1)
+    tick = sys.stdin.buffer.readline()
+    #tick = sys.stdin.read(4)
+    #f, = struct.unpack("<I", tick)
+    f = int(tick)
     led.toggle()
+    pwm15.freq(f)
     for i in range(0,N):
         Y[i] = a0.read_u16()
         #y = a0.read_u16()
