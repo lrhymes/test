@@ -35,13 +35,16 @@ ax.grid(which='minor', linestyle=':', linewidth='0.5', color='black')
 
 i = 0
 fr = 1000
-F = struct.pack("!I", fr)
-
+#F = struct.pack("!I", fr)
+F = bytes(str(fr),'ascii')
 while True:
     i = i + 1
     #nwait = s.in_waiting
     s.flushInput()
-    s.write(b'150000')
+    #s.write(b'150000')
+    #s.write(b'\n')
+    #s.write(b'150000')
+    s.write(F)
     s.write(b'\n')
     n = s.read(N*4)
     n = np.array(array.array("I",n))
